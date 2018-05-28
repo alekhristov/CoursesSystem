@@ -6,7 +6,7 @@ namespace CoursesSystem.Data.Models
 {
     public class StudentCourse : IAuditable, IDeletable
     {
-        public Guid StudentId { get; set; }
+        public string StudentId { get; set; }
         public Student Student { get; set; }
 
         public Guid CourseId { get; set; }

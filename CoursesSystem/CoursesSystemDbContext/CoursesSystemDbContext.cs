@@ -31,12 +31,14 @@ namespace CoursesSystem.Data
                 .HasOne(sc => sc.Student)
                 .WithMany(sc => sc.Courses)
                 .HasForeignKey(sc => sc.StudentId)
+                .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<StudentCourse>()
                  .HasOne(sc => sc.Course)
                  .WithMany(sc => sc.Students)
                  .HasForeignKey(sc => sc.CourseId)
+                 .IsRequired()
                  .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<StudentCourse>()
