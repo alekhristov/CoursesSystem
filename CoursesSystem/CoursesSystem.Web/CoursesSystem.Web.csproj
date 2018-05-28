@@ -22,6 +22,7 @@
     <ProjectReference Include="..\CoursesSystem.Data.Models\CoursesSystem.Data.Models.csproj" />
     <ProjectReference Include="..\CoursesSystem.DTO\CoursesSystem.DTO.csproj" />
     <ProjectReference Include="..\CoursesSystem.Services.Data\CoursesSystem.Services.Data.csproj" />
+    <ProjectReference Include="..\CoursesSystem.Utils\CoursesSystem.Utils.csproj" />
     <ProjectReference Include="..\CoursesSystemDbContext\CoursesSystem.Data.csproj" />
   </ItemGroup>
 
