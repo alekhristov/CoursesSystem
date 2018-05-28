@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2018
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessLogic", "BusinessLogic", "{F27D02D8-F810-4C86-9EF4-667D896BF5EC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{80EB6394-7F53-4923-98E8-5EBB20D3A11A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{C8F8FCC4-6929-4F91-A2D0-12F5B0C1728E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{61FD2395-A0BC-44AD-B6DD-4010C9E26E1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoursesSystem.Web", "CoursesSystem.Web\CoursesSystem.Web.csproj", "{3689D9A9-B6E6-43EF-AB05-AD037BC4CA3D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3689D9A9-B6E6-43EF-AB05-AD037BC4CA3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3689D9A9-B6E6-43EF-AB05-AD037BC4CA3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3689D9A9-B6E6-43EF-AB05-AD037BC4CA3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3689D9A9-B6E6-43EF-AB05-AD037BC4CA3D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3689D9A9-B6E6-43EF-AB05-AD037BC4CA3D} = {C8F8FCC4-6929-4F91-A2D0-12F5B0C1728E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {290E6DF7-6819-445C-A4B2-B6D5D047AF92}
+	EndGlobalSection
+EndGlobal
