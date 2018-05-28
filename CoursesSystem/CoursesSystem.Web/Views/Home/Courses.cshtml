@@ -1,7 +1,37 @@
-﻿
-@{
-    ViewData["Title"] = "Courses";
-}
+﻿@using CoursesSystem.Web.Models;
+@model CoursesViewModel;
 
-<h2>Courses</h2>
+<div class="container">
+    <div class="row">
+        <div class="panel panel-primary filterable">
+            <div class="panel-heading" style="background-color: #1da1f2;border-color: #1da1f2;">
+                <h3 class="panel-title">Available Courses</h3>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr class="filters">
+                        <th><h5>Course Id:</h5></th>
+                        <th><h5>Course Name:</h5></th>
+                        <th><h5>Course Credits:</h5></th>
+                        <th><h5>Course Lecturer:</h5></th>
+                        <th><h5>Course Registration:</h5></th>
 
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var course in Model.Courses)
+                    {
+                        <tr>
+                            <td>@course.Id</td>
+                            <td>@course.Name</td>
+                            <td>@course.Credits</td>
+                            <td>@course.LecturerName</td>
+                            <td> <button class="btn btn-success" type="submit">Register</button> </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
