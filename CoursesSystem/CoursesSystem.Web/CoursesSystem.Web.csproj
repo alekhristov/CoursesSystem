@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CoursesSystem.Data.Models\CoursesSystem.Data.Models.csproj" />
+    <ProjectReference Include="..\CoursesSystemDbContext\CoursesSystem.Data.csproj" />
   </ItemGroup>
 
 </Project>
