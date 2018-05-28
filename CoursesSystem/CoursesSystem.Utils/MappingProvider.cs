@@ -1,0 +1,41 @@
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using CoursesSystem.Utils.Contracts;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace CoursesSystem.Utils
+{
+    /// <summary>
+    /// Abstracts Automapper in order to be testable
+    /// </summary>
+    public class MappingProvider : IMappingProvider
+    {
+        private readonly IMapper mapper;
+
+        public MappingProvider(IMapper mapper)
+        {
+            this.mapper = mapper;
+        }
+
+        public TDestination MapTo<TDestination>(object source)
+        {
+            return this.mapper.Map<TDestination>(source);
+        }
+
+        public IEnumerable<TDestination> ProjectTo<TDestination>(IEnumerable<object> source)
+        {
+            return source.AsQueryable().ProjectTo<TDestination>();
+        }
+
+        public IQueryable<TDestination> ProjectTo<TSource, TDestination>(IQueryable<TSource> source)
+        {
+            return source.ProjectTo<TDestination>();
+        }
+
+        public IEnumerable<TDestination> ProjectTo<TSource, TDestination>(IEnumerable<TSource> source)
+        {
+            return source.AsQueryable().ProjectTo<TDestination>();
+        }
+    }
+}

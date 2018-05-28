@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoursesSystem.Data", "Cours
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoursesSystem.DTO", "CoursesSystem.DTO\CoursesSystem.DTO.csproj", "{0E7DC2F5-D7C2-4EE2-AC10-7335A4682471}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoursesSystem.Utils", "CoursesSystem.Utils\CoursesSystem.Utils.csproj", "{BE60BDE2-746D-416D-8E13-78AD0163FAD3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{0E7DC2F5-D7C2-4EE2-AC10-7335A4682471}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E7DC2F5-D7C2-4EE2-AC10-7335A4682471}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E7DC2F5-D7C2-4EE2-AC10-7335A4682471}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE60BDE2-746D-416D-8E13-78AD0163FAD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE60BDE2-746D-416D-8E13-78AD0163FAD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE60BDE2-746D-416D-8E13-78AD0163FAD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE60BDE2-746D-416D-8E13-78AD0163FAD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +56,7 @@ Global
 		{2C8423DD-105D-4451-B706-2BC11431F2EB} = {80EB6394-7F53-4923-98E8-5EBB20D3A11A}
 		{85460549-4C08-48A7-B419-5CBF557FFB1D} = {80EB6394-7F53-4923-98E8-5EBB20D3A11A}
 		{0E7DC2F5-D7C2-4EE2-AC10-7335A4682471} = {F27D02D8-F810-4C86-9EF4-667D896BF5EC}
+		{BE60BDE2-746D-416D-8E13-78AD0163FAD3} = {F27D02D8-F810-4C86-9EF4-667D896BF5EC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {290E6DF7-6819-445C-A4B2-B6D5D047AF92}
