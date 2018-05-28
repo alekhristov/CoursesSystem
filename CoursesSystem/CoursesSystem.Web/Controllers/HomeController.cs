@@ -12,7 +12,12 @@ namespace CoursesSystem.Web.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                return this.View();
+            }
+
+            return RedirectToAction("Courses");
         }
 
         public IActionResult About()
@@ -32,6 +37,11 @@ namespace CoursesSystem.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult Courses()
+        {
+            return View();
         }
     }
 }
