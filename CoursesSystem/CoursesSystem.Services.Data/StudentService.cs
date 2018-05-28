@@ -1,10 +1,12 @@
 ﻿using Bytes2you.Validation;
 using CoursesSystem.Data.Models;
 using CoursesSystem.Data.Repository.Contracts;
+using CoursesSystem.Data.Saver.Contracts;
 using CoursesSystem.DTO;
 using CoursesSystem.Services.Data.Contracts;
 using CoursesSystem.Utils.Contracts;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,17 +17,28 @@ namespace CoursesSystem.Services.Data
     {
         private readonly IRepository<Student> student;
         private readonly IRepository<Course> courses;
+        private readonly IRepository<StudentCourse> studentCourses;
         private readonly IMappingProvider mapper;
+        private readonly ISaver saver;
 
-        public StudentService(IRepository<Student> student, IRepository<Course> courses, IMappingProvider mapper)
+        public StudentService(
+            IRepository<Student> student, 
+            IRepository<Course> courses, 
+            IRepository<StudentCourse> studentCourses, 
+            IMappingProvider mapper,
+            ISaver saver)
         {
             Guard.WhenArgument(student, "Student can not be null!").IsNull().Throw();
             Guard.WhenArgument(courses, "Courses can not be null!").IsNull().Throw();
+            Guard.WhenArgument(studentCourses, "StudentCourse can not be null!").IsNull().Throw();
             Guard.WhenArgument(mapper, "Mapper can not be null!").IsNull().Throw();
+            Guard.WhenArgument(saver, "Saver can not be null!").IsNull().Throw();
 
             this.student = student;
             this.courses = courses;
+            this.studentCourses = studentCourses;
             this.mapper = mapper;
+            this.saver = saver;
         }
 
         public async Task<IEnumerable<CourseDto>> GetAllRegisteredCourses(string studentId)
@@ -81,6 +94,16 @@ namespace CoursesSystem.Services.Data
             Guard.WhenArgument(nonRegisteredCoursesDto, "Non-registered courses Dto can not be null!").IsNull().Throw();
 
             return nonRegisteredCoursesDto.OrderBy(c => c.Name);
+        }
+
+        public void AddCourseToStudent(Guid courseId, string studentId)
+        {
+            Guard.WhenArgument(studentId, "StudentId can not be null!").IsNullOrWhiteSpace().Throw();
+
+            var studentCourse = new StudentCourse() { StudentId = studentId, CourseId = courseId };
+
+            this.studentCourses.Add(studentCourse);
+            this.saver.SaveChanges();
         }
     }
 }

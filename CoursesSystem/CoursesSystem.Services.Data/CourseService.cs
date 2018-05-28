@@ -19,7 +19,10 @@ namespace CoursesSystem.Services.Data
         private readonly IMappingProvider mapper;
         private readonly ISaver saver;
 
-        public CourseService(IRepository<Course> courses, IMappingProvider mapper, ISaver saver)
+        public CourseService(
+            IRepository<Course> courses, 
+            IMappingProvider mapper, 
+            ISaver saver)
         {
             Guard.WhenArgument(courses, "Courses can not be null!").IsNull().Throw();
             Guard.WhenArgument(mapper, "Mapper can not be null!").IsNull().Throw();
