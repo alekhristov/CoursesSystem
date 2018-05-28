@@ -14,6 +14,8 @@ using CoursesSystem.Web.Models;
 using CoursesSystem.Web.Models.AccountViewModels;
 using CoursesSystem.Web.Services;
 using CoursesSystem.Data.Models;
+using CoursesSystem.Services.Data.Contracts;
+using CoursesSystem.DTO;
 
 namespace CoursesSystem.Web.Controllers
 {
@@ -25,17 +27,20 @@ namespace CoursesSystem.Web.Controllers
         private readonly SignInManager<Student> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private readonly ICourseService courseService;
 
         public AccountController(
             UserManager<Student> userManager,
             SignInManager<Student> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            ICourseService courseService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            this.courseService = courseService;
         }
 
         [TempData]
@@ -45,6 +50,9 @@ namespace CoursesSystem.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl = null)
         {
+            var courseDto = new CourseDto() { Id = new Guid("3e89c768-11c2-47b2-9ff8-73e9697dbdbc"), Name = ".NET" };
+            this.courseService.AddCourse(courseDto);
+
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
