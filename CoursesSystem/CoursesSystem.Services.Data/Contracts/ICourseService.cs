@@ -9,14 +9,14 @@ namespace CoursesSystem.Services.Data.Contracts
     {
         Task<IEnumerable<CourseDto>> GetAllAvailableCourses();
 
-        Task<bool> AddCourse(CourseDto course);
+        void AddCourse(CourseDto course);
 
-        Task<bool> DeleteCourse(Guid courseId);
+        void DeleteCourse(Guid courseId);
 
-        Task<bool> EditCourseName(Guid courseId, string courseNewName);
+        void EditCourseName(Guid courseId, string courseNewName);
 
-        Task<bool> EditCourseCredits(Guid courseId, int courseNewCredits);
+        void EditCourseCredits(Guid courseId, int courseNewCredits);
 
-        Task<bool> EditCourseLecturerName(Guid courseId, string courseNewLecturerName);
+        void EditCourseLecturerName(Guid courseId, string courseNewLecturerName);
     }
 }

@@ -48,7 +48,7 @@ namespace CoursesSystem.Services.Data
             var registeredCoursesDto = this.mapper.ProjectTo<Course, CourseDto>(registeredCourses);
             Guard.WhenArgument(registeredCoursesDto, "Registered courses Dto can not be null!").IsNull().Throw();
 
-            return registeredCoursesDto;
+            return registeredCoursesDto.OrderBy(c => c.Name);
         }
 
         public async Task<IEnumerable<CourseDto>> GetAllNonRegisteredCourses(string studentId)
@@ -80,7 +80,7 @@ namespace CoursesSystem.Services.Data
             var nonRegisteredCoursesDto = allCoursesDto.Except(registeredCoursesDto);
             Guard.WhenArgument(nonRegisteredCoursesDto, "Non-registered courses Dto can not be null!").IsNull().Throw();
 
-            return nonRegisteredCoursesDto;
+            return nonRegisteredCoursesDto.OrderBy(c => c.Name);
         }
     }
 }
