@@ -14,6 +14,10 @@ namespace CoursesSystem.Data
         {
         }
 
+        public DbSet<Course> Courses { get; set; }
+
+        public DbSet<StudentCourse> StudentCourses { get; set; }
+
         public override int SaveChanges()
         {
             this.ApplyAuditInfoRules();
@@ -22,6 +26,21 @@ namespace CoursesSystem.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            // Configuring many to many realationship between Student and Course tables
+            builder.Entity<StudentCourse>()
+                .HasOne(sc => sc.Student)
+                .WithMany(sc => sc.Courses)
+                .HasForeignKey(sc => sc.StudentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<StudentCourse>()
+                 .HasOne(sc => sc.Course)
+                 .WithMany(sc => sc.Students)
+                 .HasForeignKey(sc => sc.CourseId)
+                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<StudentCourse>()
+              .HasKey(sc => new { sc.StudentId, sc.CourseId });
 
             base.OnModelCreating(builder);
         }
