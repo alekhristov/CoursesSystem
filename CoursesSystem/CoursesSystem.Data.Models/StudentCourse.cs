@@ -2,12 +2,15 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace CoursesSystem.Data.Models.Abstracts
+namespace CoursesSystem.Data.Models
 {
-    public abstract class DataModel : IAuditable, IDeletable
+    public class StudentCourse : IAuditable, IDeletable
     {
-        [Key]
-        public Guid Id { get; set; }
+        public Guid StudentId { get; set; }
+        public Student Student { get; set; }
+
+        public Guid CourseId { get; set; }
+        public Course Course { get; set; }
 
         public bool IsDeleted { get; set; }
 
