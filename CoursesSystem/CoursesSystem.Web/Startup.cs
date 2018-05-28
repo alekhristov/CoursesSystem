@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using CoursesSystem.Web.Data;
-using CoursesSystem.Web.Models;
+using CoursesSystem.Data.Models;
 using CoursesSystem.Web.Services;
 
 namespace CoursesSystem.Web
@@ -29,7 +29,7 @@ namespace CoursesSystem.Web
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<Student, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 

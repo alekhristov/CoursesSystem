@@ -125,7 +125,7 @@ namespace CoursesSystem.Web.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("CoursesSystem.Web.Models.ApplicationUser", b =>
+            modelBuilder.Entity("CoursesSystem.Web.Models.Student", b =>
                 {
                     b.Property<string>("Id");
 
@@ -184,7 +184,7 @@ namespace CoursesSystem.Web.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("CoursesSystem.Web.Models.ApplicationUser")
+                    b.HasOne("CoursesSystem.Web.Models.Student")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -192,7 +192,7 @@ namespace CoursesSystem.Web.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("CoursesSystem.Web.Models.ApplicationUser")
+                    b.HasOne("CoursesSystem.Web.Models.Student")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -205,7 +205,7 @@ namespace CoursesSystem.Web.Data.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("CoursesSystem.Web.Models.ApplicationUser")
+                    b.HasOne("CoursesSystem.Web.Models.Student")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
