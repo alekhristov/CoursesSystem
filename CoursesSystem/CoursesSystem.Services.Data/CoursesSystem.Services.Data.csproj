@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CoursesSystem.Data.Models\CoursesSystem.Data.Models.csproj" />
+    <ProjectReference Include="..\CoursesSystem.DTO\CoursesSystem.DTO.csproj" />
+  </ItemGroup>
+
+</Project>
