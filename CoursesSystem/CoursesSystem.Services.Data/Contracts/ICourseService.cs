@@ -18,5 +18,7 @@ namespace CoursesSystem.Services.Data.Contracts
         void EditCourseCredits(Guid courseId, int courseNewCredits);
 
         void EditCourseLecturerName(Guid courseId, string courseNewLecturerName);
+
+        Task<CourseDto> GetCourseById(Guid courseId);
     }
 }

@@ -103,5 +103,18 @@ namespace CoursesSystem.Services.Data
 
             return allCoursesDto;
         }
+
+        public async Task<CourseDto> GetCourseById(Guid courseId)
+        {
+            var course = await this.courses.All
+                .FirstOrDefaultAsync(c => c.Id == courseId);
+
+            Guard.WhenArgument(course, "Course can not be null!").IsNull().Throw();
+
+            var courseDto = this.mapper.MapTo<CourseDto>(course);
+            Guard.WhenArgument(courseDto, "Course Dto can not be null!").IsNull().Throw();
+
+            return courseDto;
+        }
     }
 }

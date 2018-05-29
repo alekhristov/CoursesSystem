@@ -6,6 +6,7 @@ using CoursesSystem.Utils.Contracts;
 using CoursesSystem.Web.Models.CoursesViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -105,6 +106,32 @@ namespace CoursesSystem.Web.Controllers
             studentCourseService.DeleteCourseFromStudent(model.Id, studentId);
 
             return Json($"{model.Name} course successfully unregistered!");
+        }
+
+        public async Task<IActionResult> ManageCourses()
+        {
+            var model = new CoursesViewModel();
+
+            var availableCourses = await this.courseService.GetAllAvailableCourses();
+            Guard.WhenArgument(availableCourses, "Available Courses can not be null!").IsNull().Throw();
+
+            var availableCoursesModel = mapper.ProjectTo<CourseDto, CourseViewModel>(availableCourses);
+            Guard.WhenArgument(availableCoursesModel, "Available Courses can not be null!").IsNull().Throw();
+
+            model.Courses = availableCoursesModel;
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> Edit(Guid courseId)
+        {
+            var courseDto = await courseService.GetCourseById(courseId);
+            Guard.WhenArgument(courseDto, "Course Dto can not be null!").IsNull().Throw();
+
+            var courseModel = this.mapper.MapTo<CourseViewModel>(courseDto);
+            Guard.WhenArgument(courseModel, "CourseModel can not be null!").IsNull().Throw();
+
+            return View(courseModel);
         }
     }
 }

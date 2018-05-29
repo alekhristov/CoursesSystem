@@ -1,0 +1,46 @@
+﻿@using CoursesSystem.Web.Models.CoursesViewModels;
+@model CoursesViewModel;
+
+<div class="container">
+    <div class="row">
+        <div class="panel panel-primary filterable" style="margin-top: 4em;">
+            <div class="panel-heading" style="background-color: #1da1f2;border-color: #1da1f2;">
+                <h3 class="panel-title">Available Courses</h3>
+            </div>
+            @{
+                string messageId = string.Empty;
+            }
+            <table class="table">
+                <thead>
+                    <tr class="filters">
+                        <th><h5>Course Name:</h5></th>
+                        <th><h5>Edit:</h5></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var course in Model.Courses)
+                    {
+                        var editBtn = $"editBtn-{course.Id}";
+                        <tr>
+                            <td>@course.Name</td>
+                            <td>
+                                <div>
+                                    <a class="btn btn-info" form asp-controller="UserManagement" asp-action="Edit" asp-route-id="@course.Id">EDIT</a>
+                                </div>
+                                @*<button id="@editBtn" class="btn btn-success btn-lg btn-block btn-sm btn-setmargin btn-trigger" type="button" style="visibility: @visibilityReg;"
+                                        parameter1="@course.Id"
+                                        parameter2="@course.Name"
+                                        parameter3="@course.Credits"
+                                        parameter4="@course.LecturerName">
+                                    Edit
+                                </button>*@
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
