@@ -83,6 +83,7 @@ namespace CoursesSystem.Web
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IStudentService, StudentService>();
             services.AddTransient<ICourseService, CourseService>();
+            services.AddTransient<IStudentCourseService, StudentCourseService>();
         }
 
         private void RegisterInfrastructure(IServiceCollection services)

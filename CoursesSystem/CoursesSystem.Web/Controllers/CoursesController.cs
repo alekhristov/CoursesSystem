@@ -15,22 +15,26 @@ namespace CoursesSystem.Web.Controllers
     {
         private readonly ICourseService courseService;
         private readonly IStudentService studentService;
+        private readonly IStudentCourseService studentCourseService;
         private readonly IMappingProvider mapper;
         private readonly UserManager<Student> userManager;
 
         public CoursesController(
-            ICourseService courseService, 
-            IStudentService studentService, 
+            ICourseService courseService,
+            IStudentService studentService,
+            IStudentCourseService studentCourseService,
             IMappingProvider mapper,
             UserManager<Student> userManager)
         {
             Guard.WhenArgument(courseService, "Course Service can not be null!").IsNull().Throw();
             Guard.WhenArgument(studentService, "Student Service can not be null!").IsNull().Throw();
+            Guard.WhenArgument(studentCourseService, "StudentCourse Service can not be null!").IsNull().Throw();
             Guard.WhenArgument(mapper, "Mapper can not be null!").IsNull().Throw();
             Guard.WhenArgument(userManager, "User Manager").IsNull().Throw();
 
             this.courseService = courseService;
             this.studentService = studentService;
+            this.studentCourseService = studentCourseService;
             this.mapper = mapper;
             this.userManager = userManager;
         }
@@ -67,7 +71,7 @@ namespace CoursesSystem.Web.Controllers
         public IActionResult RegisterCourse([FromBody]CourseViewModel model)
         {
             var studentId = this.userManager.GetUserId(this.HttpContext.User);
-            studentService.AddCourseToStudent(model.Id, studentId);
+            studentCourseService.AddCourseToStudent(model.Id, studentId);
 
             return Json($"{model.Name} course successfully registered!");
         }
@@ -75,7 +79,7 @@ namespace CoursesSystem.Web.Controllers
         public IActionResult UnregisterCourse([FromBody]CourseViewModel model)
         {
             var studentId = this.userManager.GetUserId(this.HttpContext.User);
-            studentService.DeleteCourseFromStudent(model.Id, studentId);
+            studentCourseService.DeleteCourseFromStudent(model.Id, studentId);
 
             return Json($"{model.Name} course successfully unregistered!");
         }

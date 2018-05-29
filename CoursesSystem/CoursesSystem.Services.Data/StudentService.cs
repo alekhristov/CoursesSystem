@@ -17,26 +17,23 @@ namespace CoursesSystem.Services.Data
     {
         private readonly IRepository<Student> student;
         private readonly IRepository<Course> courses;
-        private readonly IRepository<StudentCourse> studentCourses;
+       
         private readonly IMappingProvider mapper;
         private readonly ISaver saver;
 
         public StudentService(
             IRepository<Student> student, 
             IRepository<Course> courses, 
-            IRepository<StudentCourse> studentCourses, 
             IMappingProvider mapper,
             ISaver saver)
         {
             Guard.WhenArgument(student, "Student can not be null!").IsNull().Throw();
             Guard.WhenArgument(courses, "Courses can not be null!").IsNull().Throw();
-            Guard.WhenArgument(studentCourses, "StudentCourse can not be null!").IsNull().Throw();
             Guard.WhenArgument(mapper, "Mapper can not be null!").IsNull().Throw();
             Guard.WhenArgument(saver, "Saver can not be null!").IsNull().Throw();
 
             this.student = student;
             this.courses = courses;
-            this.studentCourses = studentCourses;
             this.mapper = mapper;
             this.saver = saver;
         }
@@ -52,7 +49,7 @@ namespace CoursesSystem.Services.Data
             Guard.WhenArgument(student, "Student can not be null!").IsNull().Throw();
 
             var registeredCourses = student.Courses
-                .Where(x => x.StudentId == studentId)
+                .Where(x => x.StudentId == studentId && !x.IsDeleted)
                 .Select(x => x.Course)
                 .Where(c => !c.IsDeleted);
 
@@ -94,26 +91,6 @@ namespace CoursesSystem.Services.Data
             Guard.WhenArgument(nonRegisteredCoursesDto, "Non-registered courses Dto can not be null!").IsNull().Throw();
 
             return nonRegisteredCoursesDto.OrderBy(c => c.Name);
-        }
-
-        public void AddCourseToStudent(Guid courseId, string studentId)
-        {
-            Guard.WhenArgument(studentId, "StudentId can not be null!").IsNullOrWhiteSpace().Throw();
-
-            var studentCourse = new StudentCourse() { StudentId = studentId, CourseId = courseId };
-
-            this.studentCourses.Add(studentCourse);
-            this.saver.SaveChanges();
-        }
-
-        public void DeleteCourseFromStudent(Guid courseId, string studentId)
-        {
-            Guard.WhenArgument(studentId, "StudentId can not be null!").IsNullOrWhiteSpace().Throw();
-
-            var studentCourse = new StudentCourse() { StudentId = studentId, CourseId = courseId };
-
-            this.studentCourses.Delete(studentCourse);
-            this.saver.SaveChanges();
         }
     }
 }
