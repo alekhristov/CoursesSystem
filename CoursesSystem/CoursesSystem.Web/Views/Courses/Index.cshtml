@@ -7,6 +7,9 @@
             <div class="panel-heading" style="background-color: #1da1f2;border-color: #1da1f2;">
                 <h3 class="panel-title">Available Courses</h3>
             </div>
+            @{
+                string messageId = string.Empty;
+            }
             <table class="table">
                 <thead>
                     <tr class="filters">
@@ -21,17 +24,122 @@
 
                     @foreach (var course in Model.Courses)
                     {
+                        var registerBtn = $"regBtn-{course.Id}";
+                        var unregisterBtn = $"unregBtn-{course.Id}";
+                        
+                        var visibilityReg = "hidden";
+                        var visibilityUnreg = "hidden";
+
+                        if (!course.IsRegistered)
+                        {
+                            visibilityReg = "visible";
+                            messageId = $"message-{course.Id}";
+                        }
+                        else
+                        {
+                            visibilityUnreg = "visible";
+
+                        }
+
                         <tr>
                             <td>@course.Id</td>
                             <td>@course.Name</td>
                             <td>@course.Credits</td>
                             <td>@course.LecturerName</td>
-                            <td> <button class="btn btn-success" type="submit">Register</button> </td>
+                            <td>
+                                <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title" id="myModalLabel">Confirm</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>You are about to unregister for @course.Name course.</p>
+                                                <p>Are you sure you want to proceed?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button id="confirm-Btn" type="button" class="btn btn-danger btn-trigger" data-dismiss="modal"
+                                                        parameter1="@course.Id"
+                                                        parameter2="@course.Name">
+                                                    Yes
+                                                </button>
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button id="@unregisterBtn" class="btn btn-danger btn-lg btn-block btn-sm btn-setmargin" type="button" data-toggle="modal" data-target="#confirm-delete" style="visibility: @visibilityUnreg;">Unregister</button>
+
+                                <button id="@registerBtn" class="btn btn-success btn-lg btn-block btn-sm btn-setmargin btn-trigger" type="button" style="visibility: @visibilityReg;"
+                                        parameter1="@course.Id"
+                                        parameter2="@course.Name">
+                                    Register
+                                </button>
+                            </td>
                         </tr>
                     }
 
                 </tbody>
             </table>
+            <p class="message" data-message id="@messageId"></p>
         </div>
     </div>
 </div>
+
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial");
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script>
+        $(function () {
+            $('.btn-trigger').click(function () {
+
+                const data = {
+                    'id': $(this).attr("parameter1"),
+                    'name': $(this).attr("parameter2"),
+                };
+
+                const buttonId = $(this).attr('id');
+                console.log(buttonId);
+
+                let postUrl;
+                const messageId = `#message-${data.id}`;
+
+                if (buttonId.startsWith('reg')) {
+                    postUrl = '/Courses/RegisterCourse';
+                }
+                else {
+                    postUrl = '/Courses/UnregisterCourse';
+                }
+                console.log(postUrl);
+
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    url: postUrl,
+                    data: JSON.stringify(data),
+                    datatype: "json",
+                    success: function (result) {
+
+                        if (buttonId.startsWith('reg')) {
+                            console.log('reg');
+                            $(`#${buttonId}`).css('visibility', 'hidden');
+                            $(`#unregBtn-${data.id}`).css('visibility', 'visible');
+                        }
+                        else {
+                            console.log('unreg');
+                            $(`#unregBtn-${data.id}`).css('visibility', 'hidden');
+                            $(`#regBtn-${data.id}`).css('visibility', 'visible');
+                        }
+
+                        $(messageId).text(result).css({ 'color': 'green', 'font-weight': '500', 'font-size': 'large' }).show().delay(3000).fadeOut();
+                    },
+                    error: function (result) {
+                        $(messageId).text("Error: " + result).css({ 'color': 'red', 'font-weight': '500', 'font-size': 'large' }).show().delay(3000).fadeOut();
+                    }
+                });
+            });
+        });
+    </script>
+}

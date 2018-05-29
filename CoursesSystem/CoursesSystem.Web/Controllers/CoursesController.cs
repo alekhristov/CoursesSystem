@@ -64,15 +64,20 @@ namespace CoursesSystem.Web.Controllers
             return View(model);
         }
 
-        public IActionResult RegisterCourse()
+        public IActionResult RegisterCourse([FromBody]CourseViewModel model)
         {
-            studentService.AddCourseToStudent()
-            return Json("Successfully registered!");
+            var studentId = this.userManager.GetUserId(this.HttpContext.User);
+            studentService.AddCourseToStudent(model.Id, studentId);
+
+            return Json($"{model.Name} course successfully registered!");
         }
 
-        public IActionResult UnregisterCourse()
+        public IActionResult UnregisterCourse([FromBody]CourseViewModel model)
         {
-            return Json("Successfully unregistered!");
+            var studentId = this.userManager.GetUserId(this.HttpContext.User);
+            studentService.DeleteCourseFromStudent(model.Id, studentId);
+
+            return Json($"{model.Name} course successfully unregistered!");
         }
     }
 }
