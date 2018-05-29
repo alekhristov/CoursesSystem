@@ -26,7 +26,7 @@
                             <td>@course.Name</td>
                             <td>
                                 <div>
-                                    <a class="btn btn-info" form asp-controller="UserManagement" asp-action="Edit" asp-route-id="@course.Id">EDIT</a>
+                                    <a class="btn btn-info" form asp-controller="Courses" asp-action="Edit" asp-route-courseid="@course.Id">EDIT</a>
                                 </div>
                                 @*<button id="@editBtn" class="btn btn-success btn-lg btn-block btn-sm btn-setmargin btn-trigger" type="button" style="visibility: @visibilityReg;"
                                         parameter1="@course.Id"

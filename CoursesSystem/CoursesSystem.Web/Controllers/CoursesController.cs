@@ -133,5 +133,35 @@ namespace CoursesSystem.Web.Controllers
 
             return View(courseModel);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(CourseViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var courseDto = await courseService.GetCourseById(model.Id);
+            Guard.WhenArgument(courseDto, "Course Dto can not be null!").IsNull().Throw();
+
+            if (model.Name != courseDto.Name)
+            {
+                this.courseService.EditCourseName(model.Id, model.Name);
+            }
+
+            if (model.Credits != courseDto.Credits)
+            {
+                this.courseService.EditCourseCredits(model.Id, model.Credits);
+            }
+
+            if (model.LecturerName != courseDto.LecturerName)
+            {
+                this.courseService.EditCourseLecturerName(model.Id, model.LecturerName);
+            }
+
+            return RedirectToAction("ManageCourses");
+        }
     }
 }
