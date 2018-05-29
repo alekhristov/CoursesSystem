@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CoursesSystem.Web.Models.AccountViewModels
 {
@@ -23,5 +20,19 @@ namespace CoursesSystem.Web.Models.AccountViewModels
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "First name")]
+        [StringLength(20, MinimumLength = 2, ErrorMessage = "Invalid FirstName format!")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last name")]
+        [StringLength(20, MinimumLength = 2, ErrorMessage = "Invalid LastName format!")]
+        public string LastName { get; set; }
+
+        [Display(Name = "Faculty Number")]
+        [StringLength(20, MinimumLength = 2, ErrorMessage = "Faculty number must contain 32 alphanumeric characters and four hyphens!")]
+        public Guid? FacultyNumber { get; set; }
     }
 }
