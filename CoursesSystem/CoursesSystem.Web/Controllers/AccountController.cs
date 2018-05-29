@@ -16,6 +16,7 @@ using CoursesSystem.Web.Services;
 using CoursesSystem.Data.Models;
 using CoursesSystem.Services.Data.Contracts;
 using CoursesSystem.DTO;
+using CoursesSystem.Utils;
 
 namespace CoursesSystem.Web.Controllers
 {
@@ -226,6 +227,9 @@ namespace CoursesSystem.Web.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
+                model.FirstName = model.FirstName?.UppercaseFirstLetter();
+                model.FirstName = model.LastName?.UppercaseFirstLetter();
+
                 var user = new Student { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
