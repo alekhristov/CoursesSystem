@@ -28,7 +28,7 @@ namespace CoursesSystem.Web.Controllers
 
         public IActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
+            if (!User.Identity.IsAuthenticated)
             {
                 return this.View();
             }

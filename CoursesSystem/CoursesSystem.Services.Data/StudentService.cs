@@ -105,5 +105,15 @@ namespace CoursesSystem.Services.Data
             this.studentCourses.Add(studentCourse);
             this.saver.SaveChanges();
         }
+
+        public void DeleteCourseFromStudent(Guid courseId, string studentId)
+        {
+            Guard.WhenArgument(studentId, "StudentId can not be null!").IsNullOrWhiteSpace().Throw();
+
+            var studentCourse = new StudentCourse() { StudentId = studentId, CourseId = courseId };
+
+            this.studentCourses.Delete(studentCourse);
+            this.saver.SaveChanges();
+        }
     }
 }
