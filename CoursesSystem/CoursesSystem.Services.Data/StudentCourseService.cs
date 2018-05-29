@@ -30,7 +30,7 @@ namespace CoursesSystem.Services.Data
             this.saver = saver;
         }
 
-        public StudentCourseDto GetStudentCourseByIds(Guid courseId, string studentId)
+        public StudentCourse GetStudentCourseByIds(Guid courseId, string studentId)
         {
             Guard.WhenArgument(studentId, "Student Course can not be null!").IsNullOrEmpty().Throw();
 
@@ -38,10 +38,7 @@ namespace CoursesSystem.Services.Data
                 .FirstOrDefault(sc => sc.CourseId == courseId && sc.StudentId == studentId);
             Guard.WhenArgument(studentCourse, "Student Course can not be null!").IsNull().Throw();
 
-            var studentCourseDto = this.mapper.MapTo<StudentCourseDto>(studentCourse);
-            Guard.WhenArgument(studentCourseDto, "Student Course Dto can not be null!").IsNull().Throw();
-
-            return studentCourseDto;
+            return studentCourse;
         }
 
         public void AddCourseToStudent(Guid courseId, string studentId)
@@ -71,10 +68,7 @@ namespace CoursesSystem.Services.Data
         {
             Guard.WhenArgument(studentId, "StudentId can not be null!").IsNullOrWhiteSpace().Throw();
 
-            var studentCourseDto = this.GetStudentCourseByIds(courseId, studentId);
-
-            var studentCourse = this.mapper.MapTo<StudentCourse>(studentCourseDto);
-            Guard.WhenArgument(studentCourse, "Student Course can not be null!").IsNull().Throw();
+            var studentCourse = this.GetStudentCourseByIds(courseId, studentId);
 
             this.studentCourses.Delete(studentCourse);
             this.saver.SaveChanges();

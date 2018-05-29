@@ -26,14 +26,15 @@
                     {
                         var registerBtn = $"regBtn-{course.Id}";
                         var unregisterBtn = $"unregBtn-{course.Id}";
-                        
+                        var confirmBtn = $"confirmBtn-{course.Id}";
+                        var confirmDelete = $"confirmDelete-{course.Id}";
+
                         var visibilityReg = "hidden";
                         var visibilityUnreg = "hidden";
 
                         if (!course.IsRegistered)
                         {
                             visibilityReg = "visible";
-                            messageId = $"message-{course.Id}";
                         }
                         else
                         {
@@ -47,7 +48,7 @@
                             <td>@course.Credits</td>
                             <td>@course.LecturerName</td>
                             <td>
-                                <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="@confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -59,7 +60,7 @@
                                                 <p>Are you sure you want to proceed?</p>
                                             </div>
                                             <div class="modal-footer">
-                                                <button id="confirm-Btn" type="button" class="btn btn-danger btn-trigger" data-dismiss="modal"
+                                                <button id="@confirmBtn" type="button" class="btn btn-danger btn-trigger" data-dismiss="modal"
                                                         parameter1="@course.Id"
                                                         parameter2="@course.Name">
                                                     Yes
@@ -70,7 +71,7 @@
                                     </div>
                                 </div>
 
-                                <button id="@unregisterBtn" class="btn btn-danger btn-lg btn-block btn-sm btn-setmargin" type="button" data-toggle="modal" data-target="#confirm-delete" style="visibility: @visibilityUnreg;">Unregister</button>
+                                <button id="@unregisterBtn" class="btn btn-danger btn-lg btn-block btn-sm btn-setmargin" type="button" data-toggle="modal" data-target="#@confirmDelete" style="visibility: @visibilityUnreg;">Unregister</button>
 
                                 <button id="@registerBtn" class="btn btn-success btn-lg btn-block btn-sm btn-setmargin btn-trigger" type="button" style="visibility: @visibilityReg;"
                                         parameter1="@course.Id"
@@ -83,8 +84,8 @@
 
                 </tbody>
             </table>
-            <p class="message" data-message id="@messageId"></p>
         </div>
+        <p class="message" data-message id="confirm-message"></p>
     </div>
 </div>
 
@@ -102,9 +103,9 @@
 
                 const buttonId = $(this).attr('id');
                 console.log(buttonId);
+                console.log(data.id);
 
                 let postUrl;
-                const messageId = `#message-${data.id}`;
 
                 if (buttonId.startsWith('reg')) {
                     postUrl = '/Courses/RegisterCourse';
@@ -133,10 +134,10 @@
                             $(`#regBtn-${data.id}`).css('visibility', 'visible');
                         }
 
-                        $(messageId).text(result).css({ 'color': 'green', 'font-weight': '500', 'font-size': 'large' }).show().delay(3000).fadeOut();
+                        $('#confirm-message').text(result).css({ 'color': 'green', 'font-weight': '500', 'font-size': 'large' }).show().delay(3000).fadeOut();
                     },
                     error: function (result) {
-                        $(messageId).text("Error: " + result).css({ 'color': 'red', 'font-weight': '500', 'font-size': 'large' }).show().delay(3000).fadeOut();
+                        $('#confirm-message').text("Error: " + result).css({ 'color': 'red', 'font-weight': '500', 'font-size': 'large' }).show().delay(3000).fadeOut();
                     }
                 });
             });

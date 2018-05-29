@@ -1,11 +1,12 @@
-﻿using CoursesSystem.DTO;
+﻿using CoursesSystem.Data.Models;
+using CoursesSystem.DTO;
 using System;
 
 namespace CoursesSystem.Services.Data.Contracts
 {
     public interface IStudentCourseService
     {
-        StudentCourseDto GetStudentCourseByIds(Guid courseId, string studentId);
+        StudentCourse GetStudentCourseByIds(Guid courseId, string studentId);
 
         void AddCourseToStudent(Guid courseId, string studentId);
 
