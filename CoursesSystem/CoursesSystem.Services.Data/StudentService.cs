@@ -6,7 +6,6 @@ using CoursesSystem.DTO;
 using CoursesSystem.Services.Data.Contracts;
 using CoursesSystem.Utils.Contracts;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -49,8 +48,8 @@ namespace CoursesSystem.Services.Data
             Guard.WhenArgument(student, "Student can not be null!").IsNull().Throw();
 
             var registeredCourses = student.Courses
-                .Where(x => x.StudentId == studentId && !x.IsDeleted)
-                .Select(x => x.Course)
+                .Where(x => x.StudentId == studentId && !x.IsDeleted)?
+                .Select(c => c.Course)
                 .Where(c => !c.IsDeleted);
 
             Guard.WhenArgument(registeredCourses, "Courses can not be null!").IsNull().Throw();
@@ -65,21 +64,7 @@ namespace CoursesSystem.Services.Data
         {
             Guard.WhenArgument(studentId, "StudentId can not be null!").IsNullOrEmpty().Throw();
 
-            var student = await this.student.All
-                .Include(x => x.Courses)
-                .FirstOrDefaultAsync(x => x.Id == studentId);
-
-            Guard.WhenArgument(student, "Student can not be null!").IsNull().Throw();
-
-            var registeredCourses = student.Courses
-                .Where(x => x.StudentId == studentId)
-                .Select(x => x.Course)
-                .Where(c => !c.IsDeleted);
-
-            Guard.WhenArgument(registeredCourses, "Courses can not be null!").IsNull().Throw();
-
-            var registeredCoursesDto = this.mapper.ProjectTo<Course, CourseDto>(registeredCourses);
-            Guard.WhenArgument(registeredCoursesDto, "Registered courses Dto can not be null!").IsNull().Throw();
+            var registeredCoursesDto = await this.GetAllRegisteredCourses(studentId);
 
             var allCourses = await this.courses.All
                 .ToListAsync();
@@ -87,7 +72,7 @@ namespace CoursesSystem.Services.Data
             var allCoursesDto = this.mapper.ProjectTo<Course, CourseDto>(allCourses);
             Guard.WhenArgument(allCoursesDto, "All courses Dto can not be null!").IsNull().Throw();
 
-            var nonRegisteredCoursesDto = allCoursesDto.Except(registeredCoursesDto);
+            var nonRegisteredCoursesDto = allCoursesDto.Where(p => !registeredCoursesDto.Any(l => p.Id == l.Id));
             Guard.WhenArgument(nonRegisteredCoursesDto, "Non-registered courses Dto can not be null!").IsNull().Throw();
 
             return nonRegisteredCoursesDto.OrderBy(c => c.Name);

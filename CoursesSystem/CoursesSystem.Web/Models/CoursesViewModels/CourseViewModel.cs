@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CoursesSystem.Web.Models
+namespace CoursesSystem.Web.Models.CoursesViewModels
 {
     public class CourseViewModel
     {

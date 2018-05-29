@@ -1,0 +1,59 @@
+﻿@using CoursesSystem.Web.Models.CoursesViewModels;
+@model CoursesTablesViewModel;
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 panel panel-primary filterable" style="margin-top: 4em;">
+            <div class="panel-heading" style="background-color: #1da1f2;border-color: #1da1f2;">
+                <h3 class="panel-title">Registered Courses:</h3>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr class="filters">
+                        <th><h5>Name:</h5></th>
+                        <th><h5>Registered:</h5></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var course in Model.RegisteredCourses)
+                    {
+                        <tr>
+                            <td>@course.Name</td>
+                            <td>
+                                <i class="fa fa-check"></i>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6 panel panel-primary filterable" style="margin-top: 4em;">
+            <div class="panel-heading" style="background-color: #1da1f2;border-color: #1da1f2;">
+                <h3 class="panel-title">Not registered Courses:</h3>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr class="filters">
+                        <th><h5>Name:</h5></th>
+                        <th><h5>Registered:</h5></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var course in Model.NotRegisteredCourses)
+                    {
+                        <tr>
+                            <td>@course.Name</td>
+                            <td>
+                                <i class="fa fa-times"></i>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

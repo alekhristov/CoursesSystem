@@ -3,7 +3,7 @@ using CoursesSystem.Data.Models;
 using CoursesSystem.DTO;
 using CoursesSystem.Services.Data.Contracts;
 using CoursesSystem.Utils.Contracts;
-using CoursesSystem.Web.Models;
+using CoursesSystem.Web.Models.CoursesViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -64,6 +64,29 @@ namespace CoursesSystem.Web.Controllers
             }
 
             model.Courses = availableCoursesModel;
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> CoursesTables()
+        {
+            var model = new CoursesTablesViewModel();
+            var studentId = this.userManager.GetUserId(this.HttpContext.User);
+
+            var registeredCourses = await this.studentService.GetAllRegisteredCourses(studentId);
+            Guard.WhenArgument(registeredCourses, "Registered Courses can not be null!").IsNull().Throw();
+
+            var registeredCoursesModel = mapper.ProjectTo<CourseDto, CourseViewModel>(registeredCourses);
+            Guard.WhenArgument(registeredCoursesModel, "Registered Courses can not be null!").IsNull().Throw();
+
+            var notRegisteredCourses = await studentService.GetAllNonRegisteredCourses(studentId);
+            Guard.WhenArgument(notRegisteredCourses, "Non-Registered Courses can not be null!").IsNull().Throw();
+
+            var notRegisteredCoursesModel = mapper.ProjectTo<CourseDto, CourseViewModel>(notRegisteredCourses);
+            Guard.WhenArgument(notRegisteredCourses, "Non-Registered Courses can not be null!").IsNull().Throw();
+
+            model.RegisteredCourses = registeredCoursesModel;
+            model.NotRegisteredCourses = notRegisteredCoursesModel;
 
             return View(model);
         }
