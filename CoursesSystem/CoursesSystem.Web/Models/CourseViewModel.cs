@@ -11,5 +11,7 @@ namespace CoursesSystem.Web.Models
         public int Credits { get; set; }
 
         public string LecturerName { get; set; }
+
+        public bool IsRegistered { get; set; }
     }
 }
