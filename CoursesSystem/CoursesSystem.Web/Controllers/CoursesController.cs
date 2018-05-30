@@ -171,5 +171,22 @@ namespace CoursesSystem.Web.Controllers
 
             return RedirectToAction("ManageCourses");
         }
+
+        public IActionResult Add()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Add(CourseViewModel courseModel)
+        {
+            var courseToAdd = this.mapper.MapTo<CourseDto>(courseModel);
+            Guard.WhenArgument(courseToAdd, "Course to add can not be null!").IsNull().Throw();
+
+            courseService.AddCourse(courseToAdd);
+
+            return RedirectToAction("ManageCourses");
+        }
     }
 }

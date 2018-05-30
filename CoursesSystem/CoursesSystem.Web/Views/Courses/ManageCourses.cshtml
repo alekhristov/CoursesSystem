@@ -3,6 +3,9 @@
 
 <div class="container">
     <div class="row">
+        <p>
+            <a class="btn btn-success btn-lg btn-setmargin" form asp-controller="Courses" asp-action="Add">Add Course</a>
+        </p>
         <div class="panel panel-primary filterable" style="margin-top: 4em;">
             <div class="panel-heading" style="background-color: #1da1f2;border-color: #1da1f2;">
                 <h3 class="panel-title">Available Courses</h3>
@@ -30,12 +33,12 @@
                                     <a class="btn btn-danger" form asp-controller="Courses" asp-action="Delete" asp-route-courseid="@course.Id">DELETE</a>
                                 </div>
                                 @*<button id="@editBtn" class="btn btn-success btn-lg btn-block btn-sm btn-setmargin btn-trigger" type="button" style="visibility: @visibilityReg;"
-                                        parameter1="@course.Id"
-                                        parameter2="@course.Name"
-                                        parameter3="@course.Credits"
-                                        parameter4="@course.LecturerName">
-                                    Edit
-                                </button>*@
+                                            parameter1="@course.Id"
+                                            parameter2="@course.Name"
+                                            parameter3="@course.Credits"
+                                            parameter4="@course.LecturerName">
+                                        Edit
+                                    </button>*@
                             </td>
                         </tr>
                     }
