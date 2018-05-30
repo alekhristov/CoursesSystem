@@ -31,9 +31,10 @@ The **public part** of the application is **visible without authentication**. Th
 - The application is based on **ASP.NET Core MVC**, **MS SQL Server** as database back-end.
 - Used IDE - **Visual Studio 2017**.
 - Used **Entity Framework Core** to access database.
-- User **Repository pattern** and **Service Layer**.
+- Used **Repository pattern** and **Service Layer**.
 - Used the default dependency container and **Automapper**.
+- Used AJAX calls
+- Created one extension method
 - Written more than **50 Unit Tests** for the logic and controllers
 - Applied **error handling** and **data validation** to avoid crashes when invalid data is entered (both client-side and server-side).
 - Applied **CI pipeline** in the git server repository for code integrity verification in two stages: build stage and running tests stage.
-
