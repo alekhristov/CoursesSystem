@@ -16,7 +16,7 @@ using System.Security.Claims;
 namespace CoursesSystem.Web.UnitTests.ControllersTests.CoursesControllerTests
 {
     [TestClass]
-    public class Index_Should
+    public class CoursesTables_Should
     {
         public static Mock<UserManager<TUser>> MockUserManager<TUser>() where TUser : class
         {
@@ -115,7 +115,7 @@ namespace CoursesSystem.Web.UnitTests.ControllersTests.CoursesControllerTests
             };
 
             //Act && Assert
-            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => coursesController.Index());
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => coursesController.CoursesTables());
         }
 
         [TestMethod]
@@ -206,7 +206,7 @@ namespace CoursesSystem.Web.UnitTests.ControllersTests.CoursesControllerTests
             };
 
             //Act && Assert
-            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => coursesController.Index());
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => coursesController.CoursesTables());
         }
 
         [TestMethod]
@@ -297,7 +297,7 @@ namespace CoursesSystem.Web.UnitTests.ControllersTests.CoursesControllerTests
             };
 
             //Act && Assert
-            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => coursesController.Index());
+            Assert.ThrowsExceptionAsync<ArgumentNullException>(() => coursesController.CoursesTables());
         }
     }
 }
