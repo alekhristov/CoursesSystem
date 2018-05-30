@@ -8,4 +8,7 @@ build:
  stage: build
  script:
   - 'dotnet build CoursesSystem'
- 
+ test:
+ stage: test 
+ script:
+  - 'dotnet test CoursesSystem/CoursesSystem.Services.Data.UnitTests' 
