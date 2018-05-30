@@ -12,3 +12,4 @@ test:
  stage: test 
  script:
   - 'dotnet test CoursesSystem/CoursesSystem.Services.Data.UnitTests' 
+  - 'dotnet test CoursesSystem/CoursesSystem.Web.UnitTests' 
