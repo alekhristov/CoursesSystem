@@ -65,9 +65,9 @@ namespace CoursesSystem.Web.Controllers
                 }
             }
 
-            model.Courses = availableCoursesModel;
+            model.Courses = availableCoursesModel; 
 
-            return View(model);
+            return this.View(model);
         }
 
         public async Task<IActionResult> CoursesTables()
