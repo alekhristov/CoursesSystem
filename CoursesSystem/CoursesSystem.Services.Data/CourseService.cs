@@ -42,7 +42,7 @@ namespace CoursesSystem.Services.Data
         {
             Guard.WhenArgument(courseDto, "Course Dto can not be null!").IsNull().Throw();
 
-            courseDto.LecturerName = courseDto.LecturerName.UppercaseFirstLetter();
+            //courseDto.LecturerName = courseDto.LecturerName.UppercaseFirstLetter();
 
             var course = this.mapper.MapTo<Course>(courseDto);
             Guard.WhenArgument(course, "Course can not be null!").IsNull().Throw();
