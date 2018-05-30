@@ -6,6 +6,7 @@ using CoursesSystem.DTO;
 using CoursesSystem.Services.Data.Contracts;
 using CoursesSystem.Utils.Contracts;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,23 +17,26 @@ namespace CoursesSystem.Services.Data
     {
         private readonly IRepository<Student> student;
         private readonly IRepository<Course> courses;
-       
+        private readonly IRepository<StudentCourse> studentCourses;
         private readonly IMappingProvider mapper;
         private readonly ISaver saver;
 
         public StudentService(
             IRepository<Student> student, 
             IRepository<Course> courses, 
+            IRepository<StudentCourse> studentCourses, 
             IMappingProvider mapper,
             ISaver saver)
         {
             Guard.WhenArgument(student, "Student can not be null!").IsNull().Throw();
             Guard.WhenArgument(courses, "Courses can not be null!").IsNull().Throw();
+            Guard.WhenArgument(studentCourses, "StudentCourses can not be null!").IsNull().Throw();
             Guard.WhenArgument(mapper, "Mapper can not be null!").IsNull().Throw();
             Guard.WhenArgument(saver, "Saver can not be null!").IsNull().Throw();
 
             this.student = student;
             this.courses = courses;
+            this.studentCourses = studentCourses;
             this.mapper = mapper;
             this.saver = saver;
         }
@@ -41,18 +45,24 @@ namespace CoursesSystem.Services.Data
         {
             Guard.WhenArgument(studentId, "StudentId can not be null!").IsNullOrEmpty().Throw();
 
-            var student = await this.student.All
-                .Include(x => x.Courses)
-                .FirstOrDefaultAsync(x => x.Id == studentId);
+            //var student = await this.student.All
+            //    .Include(x => x.Courses)
+            //    .FirstOrDefaultAsync(x => x.Id == studentId);
 
-            Guard.WhenArgument(student, "Student can not be null!").IsNull().Throw();
+            //Guard.WhenArgument(student, "Student can not be null!").IsNull().Throw();
 
-            var registeredCourses = student.Courses
-                .Where(x => x.StudentId == studentId && !x.IsDeleted)?
-                .Select(c => c.Course)
-                .Where(c => !c.IsDeleted);
+            //var registeredCourses = student.Courses
+            //    .Where(x => x.StudentId == studentId && !x.IsDeleted)?
+            //    .Select(c => c.Course)
+            //    .Where(c => !c.IsDeleted);
 
-            Guard.WhenArgument(registeredCourses, "Courses can not be null!").IsNull().Throw();
+            //Guard.WhenArgument(registeredCourses, "Courses can not be null!").IsNull().Throw();
+
+            var registeredCourses = await this.studentCourses.All
+                .Include(sc => sc.Course)
+                .Where(sc => sc.StudentId == studentId && !sc.IsDeleted)
+                .Select(sc => sc.Course)
+                .ToListAsync();
 
             var registeredCoursesDto = this.mapper.ProjectTo<Course, CourseDto>(registeredCourses);
             Guard.WhenArgument(registeredCoursesDto, "Registered courses Dto can not be null!").IsNull().Throw();

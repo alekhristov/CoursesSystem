@@ -17,19 +17,23 @@ namespace CoursesSystem.Services.Data
     public class CourseService : ICourseService
     {
         private readonly IRepository<Course> courses;
+        private readonly IRepository<StudentCourse> studentCourses;
         private readonly IMappingProvider mapper;
         private readonly ISaver saver;
 
         public CourseService(
             IRepository<Course> courses, 
+            IRepository<StudentCourse> studentCourses,
             IMappingProvider mapper, 
             ISaver saver)
         {
             Guard.WhenArgument(courses, "Courses can not be null!").IsNull().Throw();
+            Guard.WhenArgument(studentCourses, "StudentCourses can not be null!").IsNull().Throw();
             Guard.WhenArgument(mapper, "Mapper can not be null!").IsNull().Throw();
             Guard.WhenArgument(saver, "Saver can not be null!").IsNull().Throw();
 
             this.courses = courses;
+            this.studentCourses = studentCourses;
             this.mapper = mapper;
             this.saver = saver;
         }
@@ -53,6 +57,18 @@ namespace CoursesSystem.Services.Data
             Guard.WhenArgument(course, "Course can not be null!").IsNull().Throw();
 
             this.courses.Delete(course);
+
+            var studentCourses = this.studentCourses.All
+                .Include(sc => sc.Course)
+                .Include(sc => sc.Student)
+                .Where(c => c.CourseId == courseId)
+                .ToList();
+
+            foreach (var item in studentCourses)
+            {
+                item.IsDeleted = true;
+            }
+
             this.saver.SaveChanges();
         }
 

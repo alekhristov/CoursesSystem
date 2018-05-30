@@ -52,6 +52,7 @@ namespace CoursesSystem.Web.Controllers
 
             var studentId = this.userManager.GetUserId(this.HttpContext.User);
             var registeredCourses = await studentService.GetAllRegisteredCourses(studentId);
+            Guard.WhenArgument(registeredCourses, "Registered Courses can not be null!").IsNull().Throw();
 
             foreach (var course in registeredCourses)
             {
@@ -160,6 +161,13 @@ namespace CoursesSystem.Web.Controllers
             {
                 this.courseService.EditCourseLecturerName(model.Id, model.LecturerName);
             }
+
+            return RedirectToAction("ManageCourses");
+        }
+
+        public IActionResult Delete(Guid courseId)
+        {
+            courseService.DeleteCourse(courseId);
 
             return RedirectToAction("ManageCourses");
         }
