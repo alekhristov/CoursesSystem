@@ -30,13 +30,13 @@
 
                 if (buttonId.startsWith('reg')) {
                     console.log('reg');
-                    $(`#${buttonId}`).css('visibility', 'hidden');
-                    $(`#unregBtn-${data.id}`).css('visibility', 'visible');
+                    $(`#${buttonId}`).css('display', 'none');
+                    $(`#unregBtn-${data.id}`).css('display', 'block');
                 }
                 else {
                     console.log('unreg');
-                    $(`#unregBtn-${data.id}`).css('visibility', 'hidden');
-                    $(`#regBtn-${data.id}`).css('visibility', 'visible');
+                    $(`#unregBtn-${data.id}`).css('display', 'none');
+                    $(`#regBtn-${data.id}`).css('display', 'block');
                 }
 
                 $('#confirm-message').text(result).css({ 'color': 'green', 'font-weight': '500', 'font-size': 'large' }).show().delay(3000).fadeOut();

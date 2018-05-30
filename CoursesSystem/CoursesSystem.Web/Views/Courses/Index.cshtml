@@ -29,16 +29,16 @@
                         var confirmBtn = $"confirmBtn-{course.Id}";
                         var confirmDelete = $"confirmDelete-{course.Id}";
 
-                        var visibilityReg = "hidden";
-                        var visibilityUnreg = "hidden";
+                        var displayReg = "none";
+                        var displayUnreg = "none";
 
                         if (!course.IsRegistered)
                         {
-                            visibilityReg = "visible";
+                            displayReg = "block";
                         }
                         else
                         {
-                            visibilityUnreg = "visible";
+                            displayUnreg = "block";
 
                         }
 
@@ -51,9 +51,9 @@
                                 <div class="modal fade" id="@confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <div class="modal-header">
+                                            <div class="modal-header" style="background-color: #1da1f2;">
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                <h4 class="modal-title" id="myModalLabel">Confirm</h4>
+                                                <h4 class="modal-title" id="myModalLabel" style="color: white;">Confirm</h4>
                                             </div>
                                             <div class="modal-body">
                                                 <p>You are about to unregister for @course.Name course.</p>
@@ -71,9 +71,9 @@
                                     </div>
                                 </div>
 
-                                <button id="@unregisterBtn" class="btn btn-danger btn-lg btn-block btn-sm btn-setmargin" type="button" data-toggle="modal" data-target="#@confirmDelete" style="visibility: @visibilityUnreg;">Unregister</button>
+                                <button id="@unregisterBtn" class="btn btn-danger btn-lg btn-block btn-sm btn-setmargin" type="button" data-toggle="modal" data-target="#@confirmDelete" style="display: @displayUnreg;">Unregister</button>
 
-                                <button id="@registerBtn" class="btn btn-success btn-lg btn-block btn-sm btn-setmargin btn-trigger" type="button" style="visibility: @visibilityReg;"
+                                <button id="@registerBtn" class="btn btn-success btn-lg btn-block btn-sm btn-setmargin btn-trigger" type="button" style="display: @displayReg; margin-top:0;"
                                         parameter1="@course.Id"
                                         parameter2="@course.Name">
                                     Register
