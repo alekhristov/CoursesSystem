@@ -85,7 +85,7 @@ namespace CoursesSystem.Services.Data
 
         public void EditCourseLecturerName(Guid courseId, string courseNewLecturerName)
         {
-            Guard.WhenArgument(courseNewLecturerName, "LecturerName can not be null!").IsNullOrWhiteSpace().Throw();
+            Guard.WhenArgument(courseNewLecturerName, "LecturerName can not be null!").IsNullOrEmpty().Throw();
 
             var course = this.courses.All.FirstOrDefault(c => c.Id == courseId);
             Guard.WhenArgument(course, "Course can not be null!").IsNull().Throw();
@@ -98,7 +98,7 @@ namespace CoursesSystem.Services.Data
 
         public void EditCourseName(Guid courseId, string courseNewName)
         {
-            Guard.WhenArgument(courseNewName, "Name can not be null!").IsNullOrWhiteSpace().Throw();
+            Guard.WhenArgument(courseNewName, "Name can not be null!").IsNullOrEmpty().Throw();
 
             var course = this.courses.All.FirstOrDefault(c => c.Id == courseId);
             Guard.WhenArgument(course, "Course can not be null!").IsNull().Throw();

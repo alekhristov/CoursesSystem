@@ -7,12 +7,11 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace CoursesSystem.Services.Data.UnitTests.CourseServiceTests
 {
     [TestClass]
-    public class EditCourseCredits_Should
+    public class EditCourseLecturerName_Should
     {
         [TestMethod]
         public void CallCoursesUpdateMethodOnce_WhenInvokedWithValidParameters()
@@ -23,7 +22,7 @@ namespace CoursesSystem.Services.Data.UnitTests.CourseServiceTests
             var mapperMock = new Mock<IMappingProvider>();
             var saverMock = new Mock<ISaver>();
 
-            var courseNewCredits = 4;
+            var courseNewLecturerName = "Marto Stamatov";
 
             var firstCourse = new Course()
             {
@@ -59,7 +58,7 @@ namespace CoursesSystem.Services.Data.UnitTests.CourseServiceTests
                 saverMock.Object);
 
             //Act
-            courseService.EditCourseCredits(firstCourse.Id, courseNewCredits);
+            courseService.EditCourseLecturerName(firstCourse.Id, courseNewLecturerName);
 
             //Assert
             coursesMock.Verify(x => x.Update(firstCourse), Times.Once);
@@ -74,7 +73,7 @@ namespace CoursesSystem.Services.Data.UnitTests.CourseServiceTests
             var mapperMock = new Mock<IMappingProvider>();
             var saverMock = new Mock<ISaver>();
 
-            var courseNewCredits = 4;
+            var courseNewLecturerName = "Marto Stamatov";
 
             var firstCourse = new Course()
             {
@@ -110,7 +109,7 @@ namespace CoursesSystem.Services.Data.UnitTests.CourseServiceTests
                 saverMock.Object);
 
             //Act
-            courseService.EditCourseCredits(firstCourse.Id, courseNewCredits);
+            courseService.EditCourseLecturerName(firstCourse.Id, courseNewLecturerName);
 
             //Assert
             saverMock.Verify(x => x.SaveChanges(), Times.Once);
@@ -125,7 +124,7 @@ namespace CoursesSystem.Services.Data.UnitTests.CourseServiceTests
             var mapperMock = new Mock<IMappingProvider>();
             var saverMock = new Mock<ISaver>();
 
-            var courseNewCredits = 4;
+            var courseNewLecturerName = "Marto Stamatov";
 
             var firstCourse = new Course()
             {
@@ -161,8 +160,103 @@ namespace CoursesSystem.Services.Data.UnitTests.CourseServiceTests
                 saverMock.Object);
 
             //Act && Assert
-            Assert.ThrowsException<ArgumentNullException>(() => courseService.EditCourseCredits(firstCourse.Id, courseNewCredits));
-            
+            Assert.ThrowsException<ArgumentNullException>(() => courseService.EditCourseLecturerName(firstCourse.Id, courseNewLecturerName));
+        }
+
+        [TestMethod]
+        public void ThrowArgumentNullException_WhenInvokedWithInvalidNullCourseNewLecturerNameParameter()
+        {
+            //Arrange
+            var coursesMock = new Mock<IRepository<Course>>();
+            var studentCoursesMock = new Mock<IRepository<StudentCourse>>();
+            var mapperMock = new Mock<IMappingProvider>();
+            var saverMock = new Mock<ISaver>();
+
+            var courseNewLecturerName = "Marto Stamatov";
+
+            var firstCourse = new Course()
+            {
+                Id = new Guid("12367a78-faf1-40c9-abcd-0c3131a03312"),
+                Name = "DSA",
+                Credits = 5,
+                LecturerName = "Sasho Dikov"
+            };
+
+            var secondCourse = new Course()
+            {
+                Id = new Guid("12367a78-0000-40c9-abcd-0c3131a03312"),
+                Name = "Design Patterns",
+                Credits = 4,
+                LecturerName = "Marto Stamatov"
+            };
+
+            var courses = new List<Course>()
+            {
+                firstCourse,
+                secondCourse
+            }
+            .AsQueryable();
+
+            coursesMock
+                .Setup(x => x.All)
+                .Returns(courses);
+
+            var courseService = new CourseService(
+                coursesMock.Object,
+                studentCoursesMock.Object,
+                mapperMock.Object,
+                saverMock.Object);
+
+            //Act && Assert
+            Assert.ThrowsException<ArgumentNullException>(() => courseService.EditCourseLecturerName(firstCourse.Id, null));
+        }
+
+        [TestMethod]
+        public void ThrowArgumentException_WhenInvokedWithInvalidEmptyCourseNewLecturerNameParameter()
+        {
+            //Arrange
+            var coursesMock = new Mock<IRepository<Course>>();
+            var studentCoursesMock = new Mock<IRepository<StudentCourse>>();
+            var mapperMock = new Mock<IMappingProvider>();
+            var saverMock = new Mock<ISaver>();
+
+            var courseNewLecturerName = "Marto Stamatov";
+
+            var firstCourse = new Course()
+            {
+                Id = new Guid("12367a78-faf1-40c9-abcd-0c3131a03312"),
+                Name = "DSA",
+                Credits = 5,
+                LecturerName = "Sasho Dikov"
+            };
+
+            var secondCourse = new Course()
+            {
+                Id = new Guid("12367a78-0000-40c9-abcd-0c3131a03312"),
+                Name = "Design Patterns",
+                Credits = 4,
+                LecturerName = "Marto Stamatov"
+            };
+
+            var courses = new List<Course>()
+            {
+                firstCourse,
+                secondCourse
+            }
+            .AsQueryable();
+
+            coursesMock
+                .Setup(x => x.All)
+                .Returns(courses);
+
+            var courseService = new CourseService(
+                coursesMock.Object,
+                studentCoursesMock.Object,
+                mapperMock.Object,
+                saverMock.Object);
+
+            //Act && Assert
+            Assert.ThrowsException<ArgumentException>(() => courseService.EditCourseLecturerName(firstCourse.Id, string.Empty));
         }
     }
 }
