@@ -37,7 +37,7 @@ The **public part** of the application is **visible without authentication**. Th
 - Used the default dependency container and **Automapper**.
 - Used AJAX calls
 - Created one extension method
-- Written more than **50 Unit Tests** for the logic and controllers
+- Written more than **60 Unit Tests** for the logic and controllers
 - Applied **error handling** and **data validation** to avoid crashes when invalid data is entered (both client-side and server-side).
 - Applied **CI pipeline** in the git server repository for code integrity verification in two stages: build stage and running tests stage.
 - Deployed on Azure
