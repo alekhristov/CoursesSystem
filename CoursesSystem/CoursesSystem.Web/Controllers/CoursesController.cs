@@ -4,6 +4,7 @@ using CoursesSystem.DTO;
 using CoursesSystem.Services.Data.Contracts;
 using CoursesSystem.Utils.Contracts;
 using CoursesSystem.Web.Models.CoursesViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace CoursesSystem.Web.Controllers
 {
+    [Authorize]
     public class CoursesController : Controller
     {
         private readonly ICourseService courseService;
@@ -65,7 +67,7 @@ namespace CoursesSystem.Web.Controllers
                 }
             }
 
-            model.Courses = availableCoursesModel; 
+            model.Courses = availableCoursesModel;
 
             return this.View(model);
         }
