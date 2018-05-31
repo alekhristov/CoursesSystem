@@ -23,7 +23,7 @@ namespace CoursesSystem.Services.Data.UnitTests.StudentService_Should
             var saverMock = new Mock<ISaver>();
 
             //Act
-            var courseService = new StudentService(
+            var studentService = new StudentService(
                 studentMock.Object,
                 coursesMock.Object,
                 studentCoursesMock.Object,
@@ -31,8 +31,8 @@ namespace CoursesSystem.Services.Data.UnitTests.StudentService_Should
                 saverMock.Object);
 
             //Assert
-            Assert.IsNotNull(courseService);
-            Assert.IsInstanceOfType(courseService, typeof(IStudentService));
+            Assert.IsNotNull(studentService);
+            Assert.IsInstanceOfType(studentService, typeof(IStudentService));
         }
 
         [TestMethod]
