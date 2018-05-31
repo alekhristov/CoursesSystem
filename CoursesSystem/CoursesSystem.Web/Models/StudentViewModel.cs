@@ -8,11 +8,11 @@ namespace CoursesSystem.Web.Models
         public string Id { get; set; }
 
         [Required]
-        [StringLength(20, MinimumLength = 2, ErrorMessage = "Invalid FirstName format!")]
+        [StringLength(20, MinimumLength = 2, ErrorMessage = "First name must be between 2 and 20 characters.")]
         public string FirstName { get; set; }
 
         [Required]
-        [StringLength(20, MinimumLength = 2, ErrorMessage = "Invalid LastName format!")]
+        [StringLength(20, MinimumLength = 2, ErrorMessage = "Last name must be between 2 and 20 characters.")]
         public string LastName { get; set; }
 
         [Required]
