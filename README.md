@@ -1,6 +1,6 @@
 # Project name: CoursesSystem
 
-[CoursesSystem Application](http://coursessystem.azurewebsites.net/)
+[CoursesSystem Application - http://coursessystem.azurewebsites.net/](http://coursessystem.azurewebsites.net/)
 
 ## Project Description
 
@@ -35,9 +35,9 @@ The **public part** of the application is **visible without authentication**. Th
 - Used **Entity Framework Core** to access database.
 - Used **Repository pattern** and **Service Layer**.
 - Used the default dependency container and **Automapper**.
-- Used AJAX calls
-- Created one extension method
+- Used **AJAX** calls
+- Created one **extension method**
 - Written more than **60 Unit Tests** for the logic and controllers
 - Applied **error handling** and **data validation** to avoid crashes when invalid data is entered (both client-side and server-side).
-- Applied **CI pipeline** in the git server repository for code integrity verification in two stages: build stage and running tests stage.
-- Deployed on Azure
+- Applied **CI/CD pipeline** in the git server repository for code integrity verification in two stages: build stage and running tests stage.
+- Deployed on **Microsoft Azure**
