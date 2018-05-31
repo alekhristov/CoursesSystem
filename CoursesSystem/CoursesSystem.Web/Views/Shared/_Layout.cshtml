@@ -40,9 +40,6 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li><a asp-area="" asp-controller="Courses" asp-action="CoursesTables">All Courses</a></li>
-                    }
-                    @if (User.Identity.IsAuthenticated)
-                    {
                         <li><a asp-area="" asp-controller="Courses" asp-action="ManageCourses">Manage Courses</a></li>
                     }
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About us</a></li>
